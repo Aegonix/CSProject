@@ -31,6 +31,8 @@ class Button:
         self.rect.center = (x, y)
 
     def draw(self, win):
+        """Draw the button to the screen."""
+        
         pygame.draw.rect(
             win, self.color, self.rect, border_radius=self.border_radius
         )
@@ -38,6 +40,8 @@ class Button:
         win.blit(self.text_surface, text_rect)
 
     def update(self, event):
+        """Check if the button is clicked and perform the action."""
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 return self.action()
@@ -95,6 +99,8 @@ class Board:
         }
 
     def draw(self, win):
+        """Draw the board to the screen."""
+
         pygame.draw.rect(win, GREY, self.grid_rect, border_radius=10)
         for row in range(self.tile_gap, self.grid_rect.width, 125):
             for height in range(self.tile_gap, self.grid_rect.height, 125):
@@ -113,15 +119,21 @@ class Board:
                     )
 
     def update(self, event):
+        """Update the board based on user input."""
+
         if event.type == pygame.KEYDOWN:
             if self.move(event.key, []):
                 self.random_tile()
 
     def reset(self):
+        """Reset the board to the initial state."""
+
         self.board = [[0, 2, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
         self.score = 0
     
     def random_tile(self):
+        """Add a random tile (2 or 4) to an empty spot on the board."""
+
         empty = []
         for i in range(len(self.board)):
             for j in range(len(self.board[i])):
@@ -136,6 +148,8 @@ class Board:
 
 
     def move(self, key, merged):
+        """Move the tiles in the specified direction."""
+
         copy = deepcopy(self.board)
         i_range = []
         j_range = []
@@ -196,6 +210,8 @@ class Board:
 
 
     def game_over(self):
+        """Check if the game is over (no more valid moves)."""
+
         if not any(row.count(0) for row in self.board):
             for i in range(len(self.board)):
                 for j in range(len(self.board)):
@@ -227,6 +243,8 @@ class Menu:
         self.just_opened = False
 
     def draw(self):
+        """Draw the menu and its buttons to the screen."""
+
         if not self.display:
             return
 
@@ -239,6 +257,8 @@ class Menu:
             button.draw(self.win)
 
     def update(self, event):
+        """Check if menu buttons are clicked and perform their actions."""
+
         if not self.display:
             return
 
@@ -260,13 +280,17 @@ class BackButton:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.img = pygame.transform.smoothscale(pygame.image.load("assets/back2.png"), (50, 50))
+        self.img = pygame.transform.smoothscale(pygame.image.load("assets/back.png"), (50, 50))
         self.rect = self.img.get_rect(topleft=(x, y))
 
     def draw(self, win):
+        """Draw the back button to the screen."""
+
         win.blit(self.img, self.rect)
 
     def clicked(self, event):
+        """Check if the back button is clicked."""
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 return True

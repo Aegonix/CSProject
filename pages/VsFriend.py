@@ -13,6 +13,7 @@ class VsFriend:
         self.player_text = pygame.font.SysFont("JetBrains Mono", 60)
         self.game_over_text = pygame.font.SysFont("JetBrains Mono", 120)
 
+        # Reset the board when clicked
         self.reset_button = Button(
             x=600,
             y=640,
@@ -31,6 +32,8 @@ class VsFriend:
 
 
     def draw(self):
+        """Draw the elements of the Vs Friend page to the screen."""
+
         self.win.fill(self.bg)
         
         self.player1_board.draw(self.win)
@@ -80,6 +83,8 @@ class VsFriend:
         self.reset_button.draw(self.win)
 
     def update(self, event):
+        """Update the Vs Friend page based on user input."""
+
         self.player1_board.update(event)
         self.reset_button.update(event)
 
@@ -93,6 +98,8 @@ class VsFriend:
                 self.player2_board.random_tile()
 
     def reset(self):
+        """Reset the game boards."""
+
         self.player1_board.reset()
         self.player2_board.reset()
     

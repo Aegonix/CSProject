@@ -15,6 +15,8 @@ class Node:
         self.depth = depth
     
     def get_val(self):
+        """Generate a heuristic value for the node/board state."""
+
         if self.check_terminal() or self.score == 0:
             return 0
         
@@ -28,6 +30,8 @@ class Node:
         return positioning_score * sqrt(self.score)
 
     def check_terminal(self):
+        """Check if the board is in a terminal state (no moves left)."""
+
         if not any(row.count(0) for row in self.board):
             for i in range(len(self.board)):
                 for j in range(len(self.board[i])):
@@ -40,6 +44,8 @@ class Node:
             return True
 
     def move(self, action, merged, board):
+        """Move the tiles on the board in the specified direction."""
+
         if not board:
             board = deepcopy(self.board)
         copy = deepcopy(board)
@@ -112,6 +118,8 @@ class AI:
         self.board = deepcopy(board)
 
     def move(self):
+        """Decide the best move to make using a depth-limited search algorithm."""
+
         self.frontier = [Node(self.board, None, None, 0, 0)]
         self.explored = []
         node = self.search()
@@ -121,6 +129,8 @@ class AI:
         return node.action
 
     def add_nodes(self, node):
+        """Add neighbouring nodes to the frontier."""
+
         actions = [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]
         for action in actions:
             state = node.move(action, [], [])
@@ -142,6 +152,8 @@ class AI:
                 self.frontier.append(Node(board, node, action, node.score + score, node.depth + 1))          
 
     def search(self):
+        """Perform the depth-limited search to find the best move."""
+
         current = min(self.frontier, key=lambda node: node.depth)
         if current.depth == self.max_depth:
             best_result = max(self.frontier, key=lambda node: node.val)

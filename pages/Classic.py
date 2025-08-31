@@ -13,6 +13,7 @@ class Classic:
         self.game_over_text = pygame.font.SysFont("JetBrains Mono", 100)
         self.board = Board((345, 100), 510)
 
+        # Resets the board when clicked
         self.reset_button = Button(
             x=1050,
             y=300,
@@ -27,6 +28,8 @@ class Classic:
         )
 
     def draw(self):
+        """Draw the elements of the classic game page to the screen."""
+
         self.win.fill(self.bg)
         self.board.draw(self.win)
         self.score_surface = self.score_text.render(f"SCORE:", True, BLACK)
@@ -42,6 +45,8 @@ class Classic:
             self.win.blit(self.game_over_surface, self.game_over_rect)
 
     def update(self, event):
+        """Update the classic game page based on user input."""
+
         self.board.update(event)
         self.reset_button.update(event)
 

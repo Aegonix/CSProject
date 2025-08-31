@@ -16,6 +16,7 @@ class WatchAI:
         self.game_over_text = pygame.font.SysFont("JetBrains Mono", 100)
         self.board = Board((345, 100), 510)
 
+        # Resets the board when clicked
         self.reset_button = Button(
             x=1050,
             y=300,
@@ -29,6 +30,7 @@ class WatchAI:
             border_radius=5
         )
 
+        # Removes the delay between AI moves when clicked
         self.max_speed_button = Button(
             x=1050,
             y=375,
@@ -42,6 +44,7 @@ class WatchAI:
             border_radius=5
         )
 
+        # Adds the delay between AI moves when clicked
         self.normal_speed_button = Button(
             x=1050,
             y=375,
@@ -59,11 +62,15 @@ class WatchAI:
         self.ai.update_board(self.board.board)
         self.done = False
         self.max_speed = False
+
+        # Start a separate thread for the AI to run on
         self.ai_thread = threading.Thread(target=self.handle_ai)
         self.ai_thread.daemon = True
         self.ai_thread.start()
 
     def draw(self):
+        """Draw the elements of the Watch AI page to the screen."""
+
         self.win.fill(self.bg)
         self.board.draw(self.win)
         self.score_surface = self.score_text.render(f"SCORE:", True, BLACK)
@@ -85,6 +92,8 @@ class WatchAI:
             self.win.blit(self.game_over_surface, self.game_over_rect)
 
     def update(self, event):
+        """Update the elements of the Watch AI page based on user input."""
+
         self.reset_button.update(event)
         if self.max_speed:
             self.max_speed_button.update(event)
@@ -92,8 +101,10 @@ class WatchAI:
             self.normal_speed_button.update(event)
 
     def handle_ai(self):
-        while not self.board.game_over() or not self.done:
-            if not self.max_speed: 
+        """Handle the AI moves in a separate thread until game over or page changed."""
+
+        while not self.board.game_over() and not self.done:
+            if not self.max_speed:
                 time.sleep(0.3)
             move = self.ai.move()
             if self.board.move(move, []):
@@ -101,7 +112,11 @@ class WatchAI:
             self.ai.update_board(self.board.board)
 
     def change_speed(self):
+        """Toggle the speed of the AI moves."""
+
         self.max_speed = not self.max_speed
 
     def clean(self):
+        """Stop the AI thread when changing pages."""
+
         self.done = True

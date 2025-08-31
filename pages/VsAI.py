@@ -41,6 +41,8 @@ class VsAI:
 
 
     def draw(self):
+        """Draw the elements of the Vs AI page to the screen."""
+
         self.win.fill(self.bg)
         
         self.player_board.draw(self.win)
@@ -93,15 +95,21 @@ class VsAI:
         self.reset_button.draw(self.win)
 
     def update(self, event):
+        """Update the Vs AI page based on user input."""
+
         self.player_board.update(event)
         self.reset_button.update(event)
 
     def reset(self):
+        """Reset the game boards."""
+
         self.player_board.reset()
         self.ai_board.reset()
 
     def handle_ai(self):
-        while not self.ai_board.game_over() or not self.done:
+        """Handle the AI moves in a separate thread until game over or page changed."""
+
+        while not self.ai_board.game_over() and not self.done:
             time.sleep(0.2)
             move = self.ai.move()
             if self.ai_board.move(move, []):
@@ -109,4 +117,6 @@ class VsAI:
             self.ai.update_board(self.ai_board.board)
 
     def clean(self):
+        """Stop the AI thread when changing pages."""
+
         self.done = True

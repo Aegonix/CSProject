@@ -10,6 +10,7 @@ WHITE = (255, 255, 255)
 back = BackButton(20, 20)
 
 def change_page(new_page):
+    """"Callback function to change the current page"""
     global page
     page = new_page
     pages.append(page)
@@ -18,7 +19,7 @@ page = WelcomePage(change_page, win)
 pages = [page]
 
 def main():
-    global page
+    """Main Event Loop"""
 
     clock = pygame.time.Clock()
     running = True

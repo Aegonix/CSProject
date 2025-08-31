@@ -11,7 +11,7 @@ class WelcomePage:
         self.win = win
         self.text_font = pygame.font.SysFont("JetBrains Mono", 40)
         self.logo = pygame.transform.smoothscale(
-            pygame.image.load("assets/logo_up.png"), (375, 225)
+            pygame.image.load("assets/logo.png"), (375, 225)
         )
 
         classic_button = Button(
@@ -115,6 +115,8 @@ class WelcomePage:
 
 
     def draw(self):
+        """Draw the elements of the welcome page to the screen."""
+
         self.win.fill(self.bg)
         self.play_button.draw(self.win)
         self.quit_button.draw(self.win)
@@ -125,6 +127,8 @@ class WelcomePage:
         self.play_menu.draw()
 
     def update(self, event):
+        """Update the welcome page based on user input."""
+
         if not self.play_menu.display:
             self.play_button.update(event)
             self.quit_button.update(event)
