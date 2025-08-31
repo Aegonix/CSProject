@@ -1,6 +1,6 @@
 from widgets import *
 from colors import *
-from pages.TestPage import TestPage
+from pages import Classic, VsAI, VsFriend, WatchAI
 import pygame
 pygame.font.init()
 
@@ -8,12 +8,13 @@ class WelcomePage:
     def __init__(self, change_page, win):
         self.change_page = change_page
         self.bg = BG_COLOR
+        self.win = win
         self.text_font = pygame.font.SysFont("JetBrains Mono", 40)
         self.logo = pygame.transform.smoothscale(
             pygame.image.load("assets/logo_up.png"), (375, 225)
         )
 
-        play_classic_button = Button(
+        classic_button = Button(
             x=0,
             y=0,
             x_scale=1.3,
@@ -22,20 +23,46 @@ class WelcomePage:
             font=self.text_font,
             color=(240, 225, 24),
             text_color=BLACK,
-            action=lambda: 0,
+            action=lambda: self.change_page(Classic.Classic(self.change_page, win)),
             border_radius=5
         )
-        ## make test button 
-        test_button = Button(
+
+        vs_ai_button = Button(
+            x=0,
+            y=0,
+            x_scale=1.25,
+            y_scale=1.05,
+            text="Play Against AI",
+            font=self.text_font,
+            color=(240, 225, 24),
+            text_color=BLACK,
+            action=lambda: self.change_page(VsAI.VsAI(self.change_page, win)),
+            border_radius=5
+        )
+
+        play_friend_button = Button(
+            x=0,
+            y=0,
+            x_scale=1.15,
+            y_scale=1.05,
+            text="Play Against Friend",
+            font=self.text_font,
+            color=(240, 225, 24),
+            text_color=BLACK,
+            action=lambda: self.change_page(VsFriend.VsFriend(self.change_page, win)),
+            border_radius=5
+        )
+
+        watch_ai_button = Button(
             x=0,
             y=0,
             x_scale=1.5,
             y_scale=1.05,
-            text="Test Page",
+            text="Watch AI Play",
             font=self.text_font,
             color=(240, 225, 24),
             text_color=BLACK,
-            action=lambda: self.change_page(TestPage(self.change_page)),
+            action=lambda: self.change_page(WatchAI.WatchAI(self.change_page, win)),
             border_radius=5
         )
 
@@ -56,8 +83,8 @@ class WelcomePage:
             win,
             600,
             350,
-            [play_classic_button, test_button, close_button],
-            (234, 194, 73),
+            [classic_button, vs_ai_button, play_friend_button, watch_ai_button, close_button],
+            GREY,
         )
 
         self.play_button = Button(
@@ -87,19 +114,18 @@ class WelcomePage:
         )
 
 
-    def draw(self, win):
-        win.fill(self.bg)
-        self.play_button.draw(win)
-        self.quit_button.draw(win)
+    def draw(self):
+        self.win.fill(self.bg)
+        self.play_button.draw(self.win)
+        self.quit_button.draw(self.win)
         logo_rect = self.logo.get_rect(center=(600, 150))
         logo_bg_rect = pygame.Rect(0, logo_rect.top, 1200, logo_rect.height)
-        pygame.draw.rect(win, (234, 194, 73), logo_bg_rect)
-        win.blit(self.logo, logo_rect)
+        pygame.draw.rect(self.win, YELLOW, logo_bg_rect)
+        self.win.blit(self.logo, logo_rect)
         self.play_menu.draw()
 
-    def update(self, win, event):
+    def update(self, event):
         if not self.play_menu.display:
             self.play_button.update(event)
             self.quit_button.update(event)
         self.play_menu.update(event)
-        self.draw(win)
