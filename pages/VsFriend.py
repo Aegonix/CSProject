@@ -8,10 +8,10 @@ class VsFriend:
         self.change_page = change_page
         self.win = win
         self.bg = BG_COLOR
-        self.score_text = pygame.font.SysFont("JetBrains Mono", 50)
-        self.reset_text = pygame.font.SysFont("JetBrains Mono", 40)
-        self.player_text = pygame.font.SysFont("JetBrains Mono", 60)
-        self.game_over_text = pygame.font.SysFont("JetBrains Mono", 120)
+        self.score_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 50)
+        self.reset_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 40)
+        self.player_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 60)
+        self.game_over_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 120)
 
         # Reset the board when clicked
         self.reset_button = Button(

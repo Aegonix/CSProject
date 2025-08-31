@@ -8,9 +8,9 @@ class Classic:
         self.change_page = change_page
         self.win = win
         self.bg = BG_COLOR
-        self.score_text = pygame.font.SysFont("JetBrains Mono", 50)
-        self.reset_text = pygame.font.SysFont("JetBrains Mono", 40)
-        self.game_over_text = pygame.font.SysFont("JetBrains Mono", 100)
+        self.score_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 50)
+        self.reset_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 40)
+        self.game_over_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 100)
         self.board = Board((345, 100), 510)
 
         # Resets the board when clicked

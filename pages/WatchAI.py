@@ -11,9 +11,9 @@ class WatchAI:
         self.change_page = change_page
         self.win = win
         self.bg = BG_COLOR
-        self.score_text = pygame.font.SysFont("JetBrains Mono", 50)
-        self.reset_text = pygame.font.SysFont("JetBrains Mono", 40)
-        self.game_over_text = pygame.font.SysFont("JetBrains Mono", 100)
+        self.score_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 50)
+        self.reset_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 40)
+        self.game_over_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 100)
         self.board = Board((345, 100), 510)
 
         # Resets the board when clicked
@@ -110,6 +110,17 @@ class WatchAI:
             if self.board.move(move, []):
                 self.board.random_tile()
             self.ai.update_board(self.board.board)
+
+    def reset(self):
+        """Reset the game board and restart the AI thread."""
+
+        self.board.reset()
+
+        if not self.ai_thread.is_alive():
+            self.ai.update_board(self.board.board)
+            self.ai_thread = threading.Thread(target=self.handle_ai)
+            self.ai_thread.daemon = True
+            self.ai_thread.start()
 
     def change_speed(self):
         """Toggle the speed of the AI moves."""

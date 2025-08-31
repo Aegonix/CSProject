@@ -9,7 +9,7 @@ class WelcomePage:
         self.change_page = change_page
         self.bg = BG_COLOR
         self.win = win
-        self.text_font = pygame.font.SysFont("JetBrains Mono", 40)
+        self.text_font = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 40)
         self.logo = pygame.transform.smoothscale(
             pygame.image.load("assets/logo.png"), (375, 225)
         )

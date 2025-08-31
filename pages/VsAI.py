@@ -11,10 +11,10 @@ class VsAI:
         self.change_page = change_page
         self.win = win
         self.bg = BG_COLOR
-        self.score_text = pygame.font.SysFont("JetBrains Mono", 50)
-        self.reset_text = pygame.font.SysFont("JetBrains Mono", 40)
-        self.player_text = pygame.font.SysFont("JetBrains Mono", 60)
-        self.game_over_text = pygame.font.SysFont("JetBrains Mono", 120)
+        self.score_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 50)
+        self.reset_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 40)
+        self.player_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 60)
+        self.game_over_text = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 120)
 
         self.reset_button = Button(
             x=600,
@@ -100,11 +100,21 @@ class VsAI:
         self.player_board.update(event)
         self.reset_button.update(event)
 
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                self.ai_board.board = [[2, 4, 2, 4], [4, 2, 4, 2], [2, 4, 2, 4], [4, 2, 4, 2]]
+
     def reset(self):
-        """Reset the game boards."""
+        """Reset the game boards and restart the AI thread."""
 
         self.player_board.reset()
         self.ai_board.reset()
+
+        if not self.ai_thread.is_alive():
+            self.ai.update_board(self.ai_board.board)
+            self.ai_thread = threading.Thread(target=self.handle_ai)
+            self.ai_thread.daemon = True
+            self.ai_thread.start()
 
     def handle_ai(self):
         """Handle the AI moves in a separate thread until game over or page changed."""

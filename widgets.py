@@ -76,7 +76,7 @@ class Board:
                 pygame.image.load("assets/64.svg"), (115, 115)
             ),
             128: pygame.transform.smoothscale(
-                pygame.image.load("assets/128.svg"), (115, 115)
+                pygame.image.load("assets/128.png"), (115, 115)
             ),
             256: pygame.transform.smoothscale(
                 pygame.image.load("assets/256.svg"), (115, 115)
