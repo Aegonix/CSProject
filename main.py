@@ -5,8 +5,7 @@ pygame.init()
 
 WIDTH, HEIGHT = 1200, 700
 win = pygame.display.set_mode((WIDTH, HEIGHT))
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+pygame.display.set_caption("2048")
 back = BackButton(20, 20)
 
 def change_page(new_page):

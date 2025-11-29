@@ -21,7 +21,7 @@ class VsFriend:
             y_scale=1.05,
             text="Reset",
             font=self.reset_text,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=self.reset,
             border_radius=5

@@ -24,7 +24,7 @@ class WatchAI:
             y_scale=1.05,
             text="Reset",
             font=self.reset_text,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=self.board.reset,
             border_radius=5
@@ -38,7 +38,7 @@ class WatchAI:
             y_scale=1.05,
             text="Max Speed",
             font=self.reset_text,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=self.change_speed,
             border_radius=5
@@ -52,7 +52,7 @@ class WatchAI:
             y_scale=1.05,
             text="Normal Speed",
             font=self.reset_text,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=self.change_speed,
             border_radius=5

@@ -19,9 +19,9 @@ class WelcomePage:
             y=0,
             x_scale=1.3,
             y_scale=1.05,
-            text="Play Classic",
+            text="Classic Mode",
             font=self.text_font,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=lambda: self.change_page(Classic.Classic(self.change_page, win)),
             border_radius=5
@@ -30,11 +30,11 @@ class WelcomePage:
         vs_ai_button = Button(
             x=0,
             y=0,
-            x_scale=1.25,
+            x_scale=1.15,
             y_scale=1.05,
-            text="Play Against AI",
+            text="Player vs AI Mode",
             font=self.text_font,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=lambda: self.change_page(VsAI.VsAI(self.change_page, win)),
             border_radius=5
@@ -43,11 +43,11 @@ class WelcomePage:
         play_friend_button = Button(
             x=0,
             y=0,
-            x_scale=1.15,
+            x_scale=1.25,
             y_scale=1.05,
-            text="Play Against Friend",
+            text="2 Player Mode",
             font=self.text_font,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=lambda: self.change_page(VsFriend.VsFriend(self.change_page, win)),
             border_radius=5
@@ -56,11 +56,11 @@ class WelcomePage:
         watch_ai_button = Button(
             x=0,
             y=0,
-            x_scale=1.5,
+            x_scale=1.25,
             y_scale=1.05,
-            text="Watch AI Play",
+            text="AI Demo Mode",
             font=self.text_font,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=lambda: self.change_page(WatchAI.WatchAI(self.change_page, win)),
             border_radius=5
@@ -94,7 +94,7 @@ class WelcomePage:
             y_scale=1.05,
             text="Play",
             font=self.text_font,
-            color=(240, 225, 24),
+            color=LIGHT_YELLOW,
             text_color=BLACK,
             action=lambda: self.play_menu.open(),
             border_radius=5
@@ -122,7 +122,7 @@ class WelcomePage:
         self.quit_button.draw(self.win)
         logo_rect = self.logo.get_rect(center=(600, 150))
         logo_bg_rect = pygame.Rect(0, logo_rect.top, 1200, logo_rect.height)
-        pygame.draw.rect(self.win, YELLOW, logo_bg_rect)
+        pygame.draw.rect(self.win, LOGO_YELLOW, logo_bg_rect)
         self.win.blit(self.logo, logo_rect)
         self.play_menu.draw()
 

@@ -236,7 +236,6 @@ class Menu:
         self.height = sum(button.rect.height for button in buttons) * 1.5
         self.width = max(button.rect.width for button in buttons) * 1.1
 
-        ## x and y are center
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = (self.x, self.y)
 

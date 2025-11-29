@@ -77,9 +77,6 @@ class Node:
                 i_increment = 1
                 j_increment = 0
 
-        if not i_range:
-            return
-
         for i in i_range:
             for j in j_range:
                 if board[i][j]:
