@@ -1,12 +1,12 @@
 import pygame
-from pages.WelcomePage import WelcomePage
+from pages.LoginPage import LoginPage
 from widgets import BackButton
 pygame.init()
 
 WIDTH, HEIGHT = 1200, 700
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
-back = BackButton(20, 20)
+back = BackButton(20, 45)
 
 def change_page(new_page):
     """"Callback function to change the current page"""
@@ -14,7 +14,7 @@ def change_page(new_page):
     page = new_page
     pages.append(page)
 
-page = WelcomePage(change_page, win)
+page = LoginPage(change_page, win)
 pages = [page]
 
 def main():

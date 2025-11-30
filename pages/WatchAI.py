@@ -7,7 +7,7 @@ import pygame
 pygame.font.init()
 
 class WatchAI:
-    def __init__(self, change_page, win):
+    def __init__(self, change_page, user, win):
         self.change_page = change_page
         self.win = win
         self.bg = BG_COLOR
@@ -21,7 +21,7 @@ class WatchAI:
             x=1050,
             y=300,
             x_scale=1.5,
-            y_scale=1.05,
+            y_scale=1.1,
             text="Reset",
             font=self.reset_text,
             color=LIGHT_YELLOW,
@@ -34,9 +34,9 @@ class WatchAI:
         self.max_speed_button = Button(
             x=1050,
             y=375,
-            x_scale=1.2,
-            y_scale=1.05,
-            text="Max Speed",
+            x_scale=1.8,
+            y_scale=1.1,
+            text="Fast",
             font=self.reset_text,
             color=LIGHT_YELLOW,
             text_color=BLACK,
@@ -48,9 +48,9 @@ class WatchAI:
         self.normal_speed_button = Button(
             x=1050,
             y=375,
-            x_scale=1.2,
-            y_scale=1.05,
-            text="Normal Speed",
+            x_scale=1.8,
+            y_scale=1.1,
+            text="Slow",
             font=self.reset_text,
             color=LIGHT_YELLOW,
             text_color=BLACK,
@@ -131,3 +131,4 @@ class WatchAI:
         """Stop the AI thread when changing pages."""
 
         self.done = True
+        self.board.reset()

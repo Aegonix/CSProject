@@ -5,10 +5,12 @@ import pygame
 pygame.font.init()
 
 class WelcomePage:
-    def __init__(self, change_page, win):
+    def __init__(self, change_page, user, win):
         self.change_page = change_page
         self.bg = BG_COLOR
         self.win = win
+        self.user = user
+        self.user_font = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 25)
         self.text_font = pygame.font.Font("assets/JetBrainsMono-Regular.ttf", 40)
         self.logo = pygame.transform.smoothscale(
             pygame.image.load("assets/logo.png"), (375, 225)
@@ -23,7 +25,7 @@ class WelcomePage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.change_page(Classic.Classic(self.change_page, win)),
+            action=lambda: self.change_page(Classic.Classic(self.change_page, user, win)),
             border_radius=5
         )
 
@@ -36,7 +38,7 @@ class WelcomePage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.change_page(VsAI.VsAI(self.change_page, win)),
+            action=lambda: self.change_page(VsAI.VsAI(self.change_page, user, win)),
             border_radius=5
         )
 
@@ -49,7 +51,7 @@ class WelcomePage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.change_page(VsFriend.VsFriend(self.change_page, win)),
+            action=lambda: self.change_page(VsFriend.VsFriend(self.change_page, user, win)),
             border_radius=5
         )
 
@@ -62,7 +64,7 @@ class WelcomePage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.change_page(WatchAI.WatchAI(self.change_page, win)),
+            action=lambda: self.change_page(WatchAI.WatchAI(self.change_page, user, win)),
             border_radius=5
         )
 
@@ -120,10 +122,19 @@ class WelcomePage:
         self.win.fill(self.bg)
         self.play_button.draw(self.win)
         self.quit_button.draw(self.win)
+
         logo_rect = self.logo.get_rect(center=(600, 150))
         logo_bg_rect = pygame.Rect(0, logo_rect.top, 1200, logo_rect.height)
         pygame.draw.rect(self.win, LOGO_YELLOW, logo_bg_rect)
         self.win.blit(self.logo, logo_rect)
+
+        user_text = self.user_font.render(f"{self.user['username']}", True, BLACK)
+        user_rect = user_text.get_rect(topright=(1190, logo_rect.top + 5))
+        score_text = self.user_font.render(f"High Score: {self.user['high_score']}", True, BLACK)
+        score_rect = score_text.get_rect(bottomright=(1190, user_rect.bottom + 30))
+        self.win.blit(user_text, user_rect)
+        self.win.blit(score_text, score_rect)
+
         self.play_menu.draw()
 
     def update(self, event):
@@ -133,3 +144,6 @@ class WelcomePage:
             self.play_button.update(event)
             self.quit_button.update(event)
         self.play_menu.update(event)
+
+    def clean(self):
+        self.play_menu.close()

@@ -32,10 +32,8 @@ class Button:
 
     def draw(self, win):
         """Draw the button to the screen."""
-        
-        pygame.draw.rect(
-            win, self.color, self.rect, border_radius=self.border_radius
-        )
+
+        pygame.draw.rect(win, self.color, self.rect, border_radius=self.border_radius)
         text_rect = self.text_surface.get_rect(center=self.rect.center)
         win.blit(self.text_surface, text_rect)
 
@@ -104,7 +102,9 @@ class Board:
         pygame.draw.rect(win, GREY, self.grid_rect, border_radius=10)
         for row in range(self.tile_gap, self.grid_rect.width, 125):
             for height in range(self.tile_gap, self.grid_rect.height, 125):
-                rect = pygame.Rect(self.grid_rect.x + row, self.grid_rect.y + height, 115, 115)
+                rect = pygame.Rect(
+                    self.grid_rect.x + row, self.grid_rect.y + height, 115, 115
+                )
                 pygame.draw.rect(win, LIGHT_GREY, rect, border_radius=5)
 
         for i, row in enumerate(self.board):
@@ -115,7 +115,7 @@ class Board:
                         (
                             self.grid_rect.x + self.tile_gap + (j * 125),
                             self.grid_rect.y + self.tile_gap + (i * 125),
-                        )
+                        ),
                     )
 
     def update(self, event):
@@ -130,7 +130,7 @@ class Board:
 
         self.board = [[0, 2, 0, 2], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
         self.score = 0
-    
+
     def random_tile(self):
         """Add a random tile (2 or 4) to an empty spot on the board."""
 
@@ -145,7 +145,6 @@ class Board:
             self.board[x][y] = 4
         else:
             self.board[x][y] = 2
-
 
     def move(self, key, merged):
         """Move the tiles in the specified direction."""
@@ -208,7 +207,6 @@ class Board:
 
         return False
 
-
     def game_over(self):
         """Check if the game is over (no more valid moves)."""
 
@@ -216,13 +214,17 @@ class Board:
             for i in range(len(self.board)):
                 for j in range(len(self.board)):
                     tile = self.board[i][j]
-                    if 0 < j < 3 and (tile == self.board[i][j + 1] or tile == self.board[i][j - 1]):
+                    if 0 < j < 3 and (
+                        tile == self.board[i][j + 1] or tile == self.board[i][j - 1]
+                    ):
                         return False
-                    if 0 < i < 3 and (tile == self.board[i + 1][j] or tile == self.board[i - 1][j]):
+                    if 0 < i < 3 and (
+                        tile == self.board[i + 1][j] or tile == self.board[i - 1][j]
+                    ):
                         return False
 
             return True
-        
+
 
 class Menu:
     def __init__(self, win, x, y, buttons, bg_color, display=False):
@@ -248,11 +250,19 @@ class Menu:
             return
 
         pygame.draw.rect(self.win, self.bg_color, self.rect, border_radius=10)
-        gaps = sum(button.rect.height for button in self.buttons) * 0.5 / (len(self.buttons) + 1)
+        gaps = (
+            sum(button.rect.height for button in self.buttons)
+            * 0.5
+            / (len(self.buttons) + 1)
+        )
         for i in range(len(self.buttons)):
             button = self.buttons[i]
             button.rect.centerx = self.rect.centerx
-            button.rect.y = self.rect.y + (i + 1) * gaps + sum(button.rect.height for button in self.buttons[:i])
+            button.rect.y = (
+                self.rect.y
+                + (i + 1) * gaps
+                + sum(button.rect.height for button in self.buttons[:i])
+            )
             button.draw(self.win)
 
     def update(self, event):
@@ -275,11 +285,14 @@ class Menu:
     def close(self):
         self.display = False
 
+
 class BackButton:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.img = pygame.transform.smoothscale(pygame.image.load("assets/back.png"), (50, 50))
+        self.img = pygame.transform.smoothscale(
+            pygame.image.load("assets/back.png"), (50, 50)
+        )
         self.rect = self.img.get_rect(topleft=(x, y))
 
     def draw(self, win):
@@ -293,3 +306,51 @@ class BackButton:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 return True
+
+
+class TextBox:
+    def __init__(self, x, y, font, length):
+        self.rect = pygame.Rect(0, 0, length, font.get_height() * 1.1)
+        self.font = font
+        self.length = length
+        self.rect.center = (x, y)
+        self.text = ""
+        self.active = False
+
+    def grab(self):
+        """ "Return the current text in the textbox."""
+
+        return self.text
+    
+    def clear(self):
+        """Clear the textbox."""
+
+        self.text = ""
+
+
+    def update(self, event, other):
+        """Update the textbox based on user input."""
+
+        if self.active:
+            if event.type == pygame.TEXTINPUT:
+                self.text += event.text
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_BACKSPACE:
+                    self.text = self.text[:-1]
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.rect.collidepoint(event.pos):
+                self.active = True
+                other.active = False
+
+    def draw(self, win):
+        """Draw the textbox to the screen."""
+
+        pygame.draw.rect(win, WHITE, self.rect, border_radius=5)
+        if self.active:
+            pygame.draw.rect(win, BLACK, self.rect, 2, border_radius=5)
+
+        display_text = self.text[-(self.length // self.font.size("a")[0]) :]
+        text_surface = self.font.render(display_text, True, BLACK)
+        text_rect = text_surface.get_rect(center=self.rect.center)
+        win.blit(text_surface, text_rect)

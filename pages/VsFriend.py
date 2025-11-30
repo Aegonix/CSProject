@@ -4,7 +4,7 @@ import pygame
 pygame.font.init()
 
 class VsFriend:
-    def __init__(self, change_page, win):
+    def __init__(self, change_page, user, win):
         self.change_page = change_page
         self.win = win
         self.bg = BG_COLOR
@@ -104,4 +104,4 @@ class VsFriend:
         self.player2_board.reset()
     
     def clean(self):
-        pass
+        self.reset()
