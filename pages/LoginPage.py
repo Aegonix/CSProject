@@ -21,9 +21,11 @@ class LoginPage:
         self.error = False
 
         self.conn = sql.connect(
-            host="localhost", user="root", password="sqlpassword", database="PROJECTDB"
+            host="localhost", user="root", password="sqlpassword"
         )
         self.cursor = self.conn.cursor()
+        self.cursor.execute("CREATE DATABASE IF NOT EXISTS GAMEDB")
+        self.cursor.execute("USE GAMEDB")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS USERS (USERNAME VARCHAR(30) PRIMARY KEY, PASSWORD VARCHAR(30), HIGH_SCORE INT)")
 
         self.username_text = self.text_font.render("Username:", True, BLACK)
