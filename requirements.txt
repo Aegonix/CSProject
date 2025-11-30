@@ -1,1 +1,2 @@
 pygame
+mysql-connector-python
