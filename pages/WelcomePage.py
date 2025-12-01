@@ -98,7 +98,7 @@ class WelcomePage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.play_menu.open(),
+            action=self.play_menu.open,
             border_radius=5
         )
 
@@ -111,7 +111,7 @@ class WelcomePage:
             font=self.text_font,
             color=RED,
             text_color=BLACK,
-            action=lambda: exit(),
+            action=exit,
             border_radius=5
         )
 

@@ -52,7 +52,7 @@ class LoginPage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.check_login(),
+            action=self.check_login,
         )
 
         self.create_account_button = Button(
@@ -64,7 +64,7 @@ class LoginPage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.change_creating(),
+            action=self.change_creating,
         )
 
         self.create_button = Button(
@@ -76,7 +76,7 @@ class LoginPage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.create_account(),
+            action=self.create_account,
         )
 
         self.back_button = Button(
@@ -88,7 +88,7 @@ class LoginPage:
             font=self.text_font,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=lambda: self.change_creating(),
+            action=self.change_creating,
         )
 
     def create_account(self):
