@@ -189,4 +189,3 @@ class LoginPage:
         self.error = False
         self.creating = False
         self.conn.close()
-        pygame.key.stop_text_input()
