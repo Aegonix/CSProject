@@ -26,7 +26,7 @@ class WatchAI:
             font=self.reset_text,
             color=LIGHT_YELLOW,
             text_color=BLACK,
-            action=self.board.reset,
+            action=self.reset,
             border_radius=5
         )
 
@@ -87,6 +87,7 @@ class WatchAI:
             self.max_speed_button.draw(self.win)
         
         if self.board.game_over():
+            self.done = True
             self.game_over_surface = self.game_over_text.render("GAME OVER", True, BLACK)
             self.game_over_rect = self.game_over_surface.get_rect(center=(600, 300))
             self.win.blit(self.game_over_surface, self.game_over_rect)
@@ -115,6 +116,7 @@ class WatchAI:
         """Reset the game board and restart the AI thread."""
 
         self.board.reset()
+        self.done = False
 
         if not self.ai_thread.is_alive():
             self.ai.update_board(self.board.board)

@@ -133,7 +133,7 @@ class Classic:
         
         self.user['high_score'] = self.board.score
         conn = sql.connect(
-            host="localhost", user="root", password="sqlpassword", database="PROJECTDB"
+            host="localhost", user="root", password="sqlpassword", database="GAMEDB"
         )
         cursor = conn.cursor()
         cursor.execute(
